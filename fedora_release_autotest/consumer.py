@@ -202,12 +202,22 @@ class Consumer:
         try:
             log.logger_init()
             logger.info(message)
-            data = consume_message(message)
+            #data = consume_message(message)
+            data = {
+                "cpu-arch": "x86_64",
+                "beaker-distro": "Fedora-Rawhide-20201115.n.0",
+                "system-type": "baremetal",
+                "do_report": "True",
+                "wiki_hostname": "fedoraproject.org",
+                "resultsdb_url": "http://resultsdb01.qa.fedoraproject.org/resultsdb_api/api/v2.0/",
+                "recent_release": "33"
+                }
+
 
             if data:
 
                 #We have to give beaker some time to sync the repo
-                time.sleep(4800)
+             #   time.sleep(4800)
                 asyncio.run(process_data(data))
         except Exception as e:
             logger.error("consumer failed: %s"%e)
